@@ -45,7 +45,8 @@ const Filter = (props) => {
             <p className='text-center font-semibold text-xl'>Filter</p>
             <AiOutlineCloseCircle className='text-white cursor-pointer' size={30} onClick={() => togglePopUp()}/>
           </div>
-          <div className='grid tablet:grid-cols-2 gap-5'>
+
+          <div className='grid tablet:grid-cols-2 gap-5 mb-5'>
             <div className='flex justify-between'>
               <p className='my-auto'>Date Start</p>
               <input type="date" className='rounded-xl p-1 text-black cursor-pointer' onChange={(e) => setBeginDate(e.target.value)} value={beginDate}/>
@@ -55,6 +56,17 @@ const Filter = (props) => {
               <input type="date" className='rounded-xl p-1 text-black cursor-pointer' onChange={(e) => setEndDate(e.target.value)} value={endDate}/>
             </div>
           </div>
+          <div className='grid tablet:grid-cols-2 gap-5 mb-5'>
+            <div className='flex justify-between'>
+              <p>Sort</p>
+              <select className='text-black rounded-xl p-1'>
+                <option value="newest">Newest</option>
+                <option value="oldest">Oldest</option>
+                <option value="relevance">Relevance</option>
+              </select>
+            </div>
+          </div>
+
           <div className='flex gap-3'>
           <button className='text-center font-semibold text-lg w-full mt-5 bg-gray-400 text-white rounded-xl'
             onClick={() => handleFilterClear()}>Clear</button>
