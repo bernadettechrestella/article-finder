@@ -6,10 +6,12 @@ import Footer from '../components/Footer';
 import Filter from '../components/Filter';
 
 const HomePage = () => {
-    const {article} = useGetArticle();
-
+    const [options, setOptions] = useState({});
     // console.log(article[0])
-
+    const handleFilterChange = (data) => {
+        setOptions(data);
+    }
+    const {article} = useGetArticle(options);
     const [searchTitle, setSearchTitle] = useState('');
 
   return (
@@ -23,7 +25,7 @@ const HomePage = () => {
                         className='w-full'/>
                 </div>
                 <div className='col-span-1 justify-self-end my-auto'>
-                    <Filter />
+                    <Filter onFilterChange={handleFilterChange}/>
                 </div>
             </div>
             <div className='mt-5'>
@@ -35,7 +37,6 @@ const HomePage = () => {
                     }
                 }).map((data) => {
                     return (
-                    <div className=''>
                         <CardArticle
                             key={data._id}
                             headline={data.headline.main}
@@ -43,7 +44,6 @@ const HomePage = () => {
                             author={data.byline.original}
                             abstract={data.abstract}
                             web_url={data.web_url}/>
-                    </div>
                     )
                 })}
             </div>
