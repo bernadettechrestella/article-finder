@@ -4,16 +4,30 @@ import CardArticle from '../components/CardArticle';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Filter from '../components/Filter';
-import { ImSpinner3 } from 'react-icons/im';
+import { BiSearchAlt } from 'react-icons/bi';
+import { AiOutlineCloseCircle } from 'react-icons/ai';
 
 const HomePage = () => {
     const [options, setOptions] = useState({});
-    // console.log(article[0])
-    const handleFilterChange = (data) => {
-        setOptions(data);
-    }
-    const {article, loading} = useGetArticle(options);
     const [searchTitle, setSearchTitle] = useState('');
+    const handleFilterChange = (data) => {
+        setOptions({
+            ...data,
+            q: searchTitle
+        });
+    }
+
+    const handleClearSearch = () => {
+        setSearchTitle('');
+        setOptions({
+            ...options,
+            q: ''
+        });
+    }
+
+    console.log(options);
+
+    const {article, loading} = useGetArticle(options);
 
   return (
     <div>
@@ -29,23 +43,25 @@ const HomePage = () => {
         ) : (
         <div className='py-14 h-screen overflow-auto'>
             <div className='grid grid-cols-7 mx-5 gap-3'>
-                <div className='border-2 border-black rounded-2xl p-2 col-span-6 w-full'>
-                    <input type="text" placeholder='Search Article by Word'
+                <div className='border-2 border-black rounded-2xl p-2 col-span-6 w-full flex'>
+                    <input type="text" placeholder='Search Articles'
                         onChange={(e) => setSearchTitle(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleFilterChange()}
                         className='w-full'/>
+                    <BiSearchAlt size={30} onClick={handleFilterChange} className='cursor-pointer'/>
                 </div>
-                <div className='col-span-1 justify-self-end my-auto'>
+                <div className='col-span-1 justify-self-end tablet:justify-self-center my-auto'>
                     <Filter onFilterChange={handleFilterChange}/>
                 </div>
             </div>
+            {options.q && (
+                <div className='mx-5 flex gap-1 px-3 mt-3'>
+                    <p className='text-center my-auto font-semibold border border-black rounded-full px-2'>{options.q}</p>
+                    <AiOutlineCloseCircle size={20} className='my-auto' onClick={handleClearSearch}/>
+                </div>
+            )}
             <div className='mt-5'>
-                {article.length > 0 && article.filter((value) => {
-                    if (searchTitle === '') {
-                        return value
-                    } else if (value.headline.main.toLowerCase().includes(searchTitle.toLowerCase()) || value.abstract.toLowerCase().includes(searchTitle.toLowerCase())) {
-                        return value
-                    }
-                }).map((data) => {
+                {article.length > 0 && article.map((data) => {
                     return (
                         <CardArticle
                             key={data._id}
