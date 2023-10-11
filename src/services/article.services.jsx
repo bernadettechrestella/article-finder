@@ -51,7 +51,6 @@ export const getAllArticle = async (callback, options = {}) => {
         url += `api-key=PgzOkI7cz0qoQnidmZwCurfcpaWIYIcl`
 
         const res = await axios.get(url)
-        console.log(url)
         callback(res.data.response.docs)
     } catch (error) {
         console.log(error)
