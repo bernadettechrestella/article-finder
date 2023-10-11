@@ -13,9 +13,6 @@ const Filter = (props) => {
   const [endDate, setEndDate] = useState('')
 
   const handleFilterChange = () => {
-    if (endDate === '') {
-      setEndDate(Date())
-    }
     const formattedBeginDate = beginDate.replace(/-/g, '');
     const formattedEndDate = endDate.replace(/-/g, '');
     const filterData = {
@@ -49,14 +46,14 @@ const Filter = (props) => {
           <div className='grid tablet:grid-cols-2 gap-5 mb-5'>
             <div className='flex justify-between'>
               <p className='my-auto'>Date Start</p>
-              <input type="date" className='rounded-xl p-1 text-black cursor-pointer' onChange={(e) => setBeginDate(e.target.value)} value={beginDate}/>
+              <input type="date" className='rounded-xl p-1 text-black cursor-pointer' onChange={(e) => setBeginDate(e.target.value)} value={beginDate || ''}/>
             </div>
             <div className='flex justify-between'>
               <p className='my-auto'>Date End</p>
-              <input type="date" className='rounded-xl p-1 text-black cursor-pointer' onChange={(e) => setEndDate(e.target.value)} value={endDate}/>
+              <input type="date" className='rounded-xl p-1 text-black cursor-pointer' onChange={(e) => setEndDate(e.target.value)} value={endDate || ''}/>
             </div>
           </div>
-          <div className='grid tablet:grid-cols-2 gap-5 mb-5'>
+          {/* <div className='grid tablet:grid-cols-2 gap-5 mb-5'>
             <div className='flex justify-between'>
               <p>Sort</p>
               <select className='text-black rounded-xl p-1'>
@@ -65,7 +62,7 @@ const Filter = (props) => {
                 <option value="relevance">Relevance</option>
               </select>
             </div>
-          </div>
+          </div> */}
 
           <div className='flex gap-3'>
           <button className='text-center font-semibold text-lg w-full mt-5 bg-gray-400 text-white rounded-xl'
