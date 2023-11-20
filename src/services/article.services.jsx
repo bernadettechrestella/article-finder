@@ -16,6 +16,7 @@ export const getAllArticle = async (callback, options = {}) => {
         const { beginDate, endDate, facet, facetFields, facetFilter, fl, fq, page, q, sort } = options
 
         let url = `https://api.nytimes.com/svc/search/v2/articlesearch.json?`
+        let APIKEY = import.meta.env.VITE_REACT_APP_API_KEY
 
         if (beginDate) {
             url += `begin_date=${beginDate}&`
@@ -48,7 +49,7 @@ export const getAllArticle = async (callback, options = {}) => {
             url += `sort=${sort}&`
         }
 
-        url += `api-key=PgzOkI7cz0qoQnidmZwCurfcpaWIYIcl`
+        url += `api-key=${APIKEY}`
 
         const res = await axios.get(url)
         callback(res.data.response.docs)
