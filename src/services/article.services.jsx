@@ -55,7 +55,6 @@ export const getAllArticle = async (callback, options = {}) => {
         const statusCode = res.status;
         const data = res.data.response.docs;
         const meta = res.data.response.meta;
-
         callback(data, statusCode, meta)
     } catch (error) {
         console.log(error)
