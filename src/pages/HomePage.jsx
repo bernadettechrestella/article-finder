@@ -6,6 +6,7 @@ import Footer from '../components/Footer';
 import Filter from '../components/Filter';
 import { BiSearchAlt } from 'react-icons/bi';
 import { AiOutlineCloseCircle } from 'react-icons/ai';
+import Pagination from '../components/Pagination';
 
 const HomePage = () => {
     const [options, setOptions] = useState({});
@@ -25,9 +26,9 @@ const HomePage = () => {
         });
     }
 
-    console.log(options);
+    // console.log(options);
 
-    const {article, loading} = useGetArticle(options);
+    const {article, loading, hits} = useGetArticle(options);
 
   return (
     <div>
@@ -73,6 +74,7 @@ const HomePage = () => {
                     )
                 })}
             </div>
+            <Pagination hits={hits}/>
         </div>
         )
         }
