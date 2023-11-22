@@ -2,18 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { IoIosArrowDropleft, IoIosArrowDropright } from "react-icons/io";
 
 const Pagination = (props) => {
-  const { hits } = props;
+  const { hits, updatePage } = props;
 
-  const [page, setPage] = useState(1);
-  const [jumlahPage, setJumlahPage] = useState(1);
+  const jumlahPage = Math.ceil(hits/10); //total semua halaman
+  const [nomorPage, setNomorPage] = useState(1); //nomor halaman di tampilan
 
-  useEffect(() => {
-    setJumlahPage(Math.ceil(hits / 10));
-  }, [hits]);
-
-  const handlePageClick = (pageNumber) => {
-    setPage(pageNumber);
+  const handlePageClick = (pageNumber) => { //pageNumber adalah nomor halaman yang diklik
+    setNomorPage(pageNumber);
+    updatePage(pageNumber - 1)
   };
+
+  console.log("Nomor Page: ",nomorPage)
 
   const renderPageNumbers = () => {
     const maxPageNumbers = 10;
@@ -24,7 +23,7 @@ const Pagination = (props) => {
         pageNumbers.push(
           <button
             key={i}
-            className={page === i ? 'active' : ''}
+            className={`${nomorPage === i ? 'bg-black text-white px-1 rounded-md text-lg' : ''}`}
             onClick={() => handlePageClick(i)}
           >
             {i}
@@ -32,9 +31,9 @@ const Pagination = (props) => {
         );
       }
     } else {
-      const middlePage = Math.floor(maxPageNumbers / 2);
-      const startPage = Math.max(1, page - middlePage);
-      const endPage = Math.min(jumlahPage, startPage + maxPageNumbers - 1);
+      const middlePage = Math.floor(maxPageNumbers / 2); // 5
+      const startPage = Math.max(1, nomorPage - middlePage); // 1
+      const endPage = Math.min(jumlahPage, startPage + maxPageNumbers - 1); // 10
 
       if (startPage > 1) {
         pageNumbers.push(
@@ -48,7 +47,7 @@ const Pagination = (props) => {
         pageNumbers.push(
           <button
             key={i}
-            className={page === i ? 'active' : ''}
+            className={`${nomorPage === i ? 'bg-black text-white px-1 rounded-md text-lg' : ''}`}
             onClick={() => handlePageClick(i)}
           >
             {i}
@@ -72,12 +71,12 @@ const Pagination = (props) => {
     <div>
       {jumlahPage > 1 && (
         <div className='flex gap-3 justify-center'>
-          {page > 1 && (
-            <IoIosArrowDropleft size={25} onClick={() => handlePageClick(page - 1)}/>
+          {nomorPage > 1 && (
+            <IoIosArrowDropleft size={25} onClick={() => handlePageClick(nomorPage - 1)}/>
           )}
           {renderPageNumbers()}
-          {page < jumlahPage && (
-            <IoIosArrowDropright size={25} onClick={() => handlePageClick(page + 1)}/>
+          {nomorPage < jumlahPage && (
+            <IoIosArrowDropright size={25} onClick={() => handlePageClick(nomorPage + 1)}/>
           )}
         </div>
       )}
