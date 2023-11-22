@@ -9,8 +9,9 @@ import { AiOutlineCloseCircle } from 'react-icons/ai';
 import Pagination from '../components/Pagination';
 
 const HomePage = () => {
-    const [options, setOptions] = useState({});
+    const [options, setOptions] = useState({page: 0});
     const [searchTitle, setSearchTitle] = useState('');
+
     const handleFilterChange = (data) => {
         setOptions({
             ...data,
@@ -74,7 +75,9 @@ const HomePage = () => {
                     )
                 })}
             </div>
-            <Pagination hits={hits}/>
+            <Pagination
+                hits={hits}
+                updatePage={(pageNumber) => setOptions({...options, page: pageNumber})}/>
         </div>
         )
         }
