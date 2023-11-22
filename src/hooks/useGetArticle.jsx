@@ -4,23 +4,19 @@ import { getAllArticle } from "../services/article.services"
 export const useGetArticle =  (options = {}) => {
     const [article, setArticle] = useState([])
     const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        setLoading(true)
-        getAllArticle((data) => {
-            setArticle(data)
-        })
-        setLoading(false)
-    }, [])
+    const [statusCode, setStatusCode] = useState(null)
+    const [hits, setHits] = useState(0)
 
     useEffect(() => {
         const fetchData = async () => {
             try {
                 setLoading(true);
-                const data = await getAllArticle((docs) => {
-                    setArticle(docs);
+                await getAllArticle((data, statusCode, meta) => {
+                    setArticle(data);
+                    setStatusCode(statusCode);
+                    setHits(meta.hits);
+                    setLoading(false);
                 }, options);
-                setLoading(false);
           } catch (error) {
             console.log(error);
           }
@@ -29,5 +25,5 @@ export const useGetArticle =  (options = {}) => {
         fetchData();
     }, [options]);
 
-    return {article, loading}
+    return {article, loading, statusCode, hits}
 }
