@@ -12,8 +12,6 @@ const Pagination = (props) => {
     updatePage(pageNumber - 1)
   };
 
-  console.log("Nomor Page: ",nomorPage)
-
   const renderPageNumbers = () => {
     const maxPageNumbers = 10;
     const pageNumbers = [];
@@ -70,7 +68,7 @@ const Pagination = (props) => {
   return (
     <div>
       {jumlahPage > 1 && (
-        <div className='flex gap-3 justify-center'>
+        <div className='flex gap-3 justify-center py-3'>
           {nomorPage > 1 && (
             <IoIosArrowDropleft size={25} onClick={() => handlePageClick(nomorPage - 1)}/>
           )}
