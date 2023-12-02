@@ -70,11 +70,11 @@ const Pagination = (props) => {
       {jumlahPage > 1 && (
         <div className='flex gap-3 justify-center py-3'>
           {nomorPage > 1 && (
-            <IoIosArrowDropleft size={25} onClick={() => handlePageClick(nomorPage - 1)}/>
+            <IoIosArrowDropleft size={25} onClick={() => handlePageClick(nomorPage - 1)} className='cursor-pointer'/>
           )}
           {renderPageNumbers()}
           {nomorPage < jumlahPage && (
-            <IoIosArrowDropright size={25} onClick={() => handlePageClick(nomorPage + 1)}/>
+            <IoIosArrowDropright size={25} onClick={() => handlePageClick(nomorPage + 1)} className='cursor-pointer'/>
           )}
         </div>
       )}
